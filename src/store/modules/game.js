@@ -33,7 +33,7 @@ const mutations = {
             state.shipsDamagedPositions[position] = true
             ship.isAlive = !ship.squares.every(square => state.shipsDamagedPositions[square])
             if(!ship.isAlive) {
-                alert('')
+                // alert('')
             }
         }
     }
