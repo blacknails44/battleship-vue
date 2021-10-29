@@ -1,26 +1,48 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="game">
+    <div class="nav">
+      <div>
+        <router-link to="/" class="link-item">
+            Play Battleship
+        </router-link>
+      </div>
+      <div>
+        <router-link to="/about" class="link-item">About</router-link>
+      </div>
+      <div>
+        <router-link to="/settings" class="link-item" >Settings</router-link>
+      </div>
+    </div>
+    <router-view/>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
-
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+.game {
+  min-height: 100vh;
+  color: #23272F;
+  display: flex;
+}
+.nav {
+  padding-top: 2rem ;
+  width: 200px;
+}
+
+.nav a {
+  font-weight: bold;
+  color: #23272F;
+  text-decoration: none;
+}
+
+.link-item {
+  padding: .5rem;
+  display: block;
+  border-radius: .5rem;
+}
+
+.link-item {
+  background: rgba(8,126,164, .15);
+  color: #087EA4;
 }
 </style>
