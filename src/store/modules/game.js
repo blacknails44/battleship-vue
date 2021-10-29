@@ -18,6 +18,9 @@ const getters = {
     },
     isWinner: (state) => {
         return state.ships.every(ship => !ship.isAlive)
+    },
+    difficulty: (state) => {
+        return state.gameDifficulty
     }
 }
 

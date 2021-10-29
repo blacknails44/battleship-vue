@@ -4,9 +4,14 @@
       <img :src="ship" width="64" class="mr-4">
       Battleship
     </div>
-    <div>
-      Current Turn: {{ currentTurn }}
+    <div class="flex">
+      <div>
+        Current Turn: {{ currentTurn }}
+      </div>
     </div>
+      <div>
+        Difficulty: {{difficulty}}
+      </div>
     <div class="board-wrapper">
       <div class="flex">
         <div class="mr-4 first-col"></div>
@@ -63,7 +68,8 @@ export default {
     },
     ...mapGetters('game', {
       isGameOver: 'isGameOver',
-      isWinner: 'isWinner'
+      isWinner: 'isWinner',
+      difficulty: 'difficulty'
     }),
     ...mapState({
       currentTurn: state => state.game.currentTurn
