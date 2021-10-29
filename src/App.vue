@@ -41,7 +41,7 @@
   border-radius: .5rem;
 }
 
-.link-item {
+.link-item.router-link-active {
   background: rgba(8,126,164, .15);
   color: #087EA4;
 }

@@ -27,6 +27,7 @@ const mutations = {
         state.gameBoard[position].isVisited = true
         const ship = state.ships.find(ship => ship.squares.includes(position))
         if(ship) {
+            state.ship = ship
             state.gameBoard[position].containsShip = true
             state.gameBoard[position].color = colors[ship.length]
             state.shipsDamagedPositions[position] = true
@@ -45,6 +46,7 @@ const actions = {
         state.gameBoard[position].isVisited = true
         const ship = state.ships.find(ship => ship.squares.includes(position))
         if(ship) {
+            state.ship = ship
             state.gameBoard[position].containsShip = true
             state.gameBoard[position].color = colors[ship.length]
             state.shipsDamagedPositions[position] = true

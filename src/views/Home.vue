@@ -8,14 +8,24 @@
       Current Turn: {{ currentTurn }}
     </div>
     <div class="board-wrapper">
-      <div class="board-grid">
-        <div v-for="(square, index) in gameBoard" :key="index" @click="attackShip(index)" class="board-square"
-             :style="{backgroundColor: square.color}">
-          <img :src="ship" alt="" v-if="square.isVisited && square.containsShip">
-          <img :src="sword" alt="" v-else-if="square.isVisited">
-          <img :src="ocean" alt="" v-else>
+      <div class="flex">
+        <div class="mr-4 first-col"></div>
+        <div v-for="(col, index) in cols" :key="`col-${index}`" class="row-title flex-1">{{ col }}</div>
+      </div>
+      <div class="flex">
+        <div class="mr-4 flex flex-col gap-1 rows-container">
+          <div v-for="(row, index) in rows" :key="`row-${index}`" class="row-title">{{ row }}</div>
+        </div>
+        <div class="board-grid">
+          <div v-for="(square, index) in gameBoard" :key="index" @click="attackShip(index)" class="board-square"
+               :style="{backgroundColor: square.color}">
+            <img :src="ship" alt="" v-if="square.isVisited && square.containsShip">
+            <img :src="cross" alt="" v-else-if="square.isVisited">
+            <img :src="ocean" alt="" v-else>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -23,10 +33,11 @@
 <script>
 import {mapGetters, mapState} from 'vuex'
 
+import { rows, cols} from "@/constants/game";
 import ocean from '@/assets/ocean.svg'
 import sword from '@/assets/sword-cross.svg'
 import ship from '@/assets/ship.svg'
-
+import cross from '@/assets/cross.svg'
 export default {
   name: 'Home',
   components: {
@@ -35,7 +46,10 @@ export default {
     return {
       ocean,
       sword,
-      ship
+      ship,
+      cross,
+      rows,
+      cols
     }
   },
   methods: {
@@ -64,22 +78,24 @@ export default {
   padding: 2rem;
 }
 .board-wrapper {
-  display: flex;
-  justify-content: center;
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*background: #81DAFC;*/
+  padding: 1rem;
 }
 
 .board-grid {
   display: grid;
-  grid-template-columns: repeat(10, 4.1rem);
-  row-gap: 2px;
-  column-gap: 0;
+  grid-template-columns: repeat(10, 3rem);
 }
 
 .board-square {
-  width: 4rem;
-  height: 4rem;
-  border: 1px solid black;
+  width: 3rem;
+  height: 3rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .game-title {
@@ -87,5 +103,25 @@ export default {
 font-weight: 700;
   display: flex;
   align-items: center;
+}
+
+.rows-container {
+  gap: 2px;
+}
+.row-title {
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  gap: 2px;
+  /*color: #FFFFFF;*/
+}
+
+.first-col {
+  width: 3rem;
+  height: 3rem;
 }
 </style>
