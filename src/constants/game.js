@@ -24,11 +24,25 @@ export const gameBoardH = [
     'J1', 'J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J8', 'J9', 'J10'
 ]
 
-export const difficulties = [
-    'easy',
-    'medium',
-    'hard',
-    'custom'
+export const difficulties = {
+    'EASY': 'Easy',
+    'MEDIUM': 'Medium',
+    'HARD': 'Hard'
+}
+
+export const difficultyList = [
+    {
+        name: difficulties['EASY'],
+        numberOfTurns: Infinity
+    },
+    {
+        name: difficulties['MEDIUM'],
+        numberOfTurns: 100
+    },
+    {
+        name: difficulties['HARD'],
+        numberOfTurns: 50
+    }
 ]
 
 export const colors = {

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="game-title">
-      <img :src="ship" width="64" class="mr-4">
+      <img :src="icons.ship" width="64" class="mr-4">
       Battleship
     </div>
     <div class="flex">
@@ -24,35 +24,37 @@
         <div class="board-grid">
           <div v-for="(square, index) in gameBoard" :key="index" @click="attackShip(index)" class="board-square"
                :style="{backgroundColor: square.color}">
-            <img :src="ship" alt="" v-if="square.isVisited && square.containsShip">
-            <img :src="cross" alt="" v-else-if="square.isVisited">
-            <img :src="ocean" alt="" v-else>
+            <img :src="icons.ship" alt="" v-if="square.isVisited && square.containsShip">
+            <img :src="icons.cross" alt="" v-else-if="square.isVisited">
+            <img :src="icons.ocean" alt="" v-else>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
-import {mapGetters, mapState} from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 import { rows, cols} from "@/constants/game";
 import ocean from '@/assets/ocean.svg'
 import sword from '@/assets/sword-cross.svg'
 import ship from '@/assets/ship.svg'
 import cross from '@/assets/cross.svg'
+
 export default {
   name: 'Home',
   components: {
   },
   data() {
     return {
-      ocean,
-      sword,
-      ship,
-      cross,
+      icons: {
+        ocean,
+        sword,
+        ship,
+        cross,
+      },
       rows,
       cols
     }
@@ -60,16 +62,14 @@ export default {
   methods: {
     attackShip(position) {
       this.$store.commit('game/handleAttackShip', {position})
-    }
+    },
   },
   computed: {
-    gameBoard() {
-      return this.$store.state.game.gameBoard
-    },
     ...mapGetters('game', {
       isGameOver: 'isGameOver',
       isWinner: 'isWinner',
-      difficulty: 'difficulty'
+      difficulty: 'difficulty',
+      gameBoard: 'gameBoard'
     }),
     ...mapState({
       currentTurn: state => state.game.currentTurn
@@ -84,9 +84,6 @@ export default {
   padding: 2rem;
 }
 .board-wrapper {
-  /*display: flex;*/
-  /*justify-content: center;*/
-  /*background: #81DAFC;*/
   padding: 1rem;
 }
 
@@ -123,7 +120,6 @@ font-weight: 700;
   font-size: 2rem;
   font-weight: 700;
   gap: 2px;
-  /*color: #FFFFFF;*/
 }
 
 .first-col {

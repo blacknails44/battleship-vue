@@ -1,10 +1,10 @@
-import {colors, numberOfTurnsByDifficulty} from "@/constants/game";
+import {colors, difficultyList, numberOfTurnsByDifficulty} from "@/constants/game";
 import {generateBoard, generateShips} from "@/helpers/game";
 
 const state = () => ({
     gameBoard: generateBoard(),
     currentTurn: 0,
-    gameDifficulty: 'MEDIUM',
+    gameDifficulty: null,
     numberOfTurns: 50,
     ships: generateShips(),
     shipsDamagedPositions: {}
@@ -21,6 +21,9 @@ const getters = {
     },
     difficulty: (state) => {
         return state.gameDifficulty
+    },
+    gameBoard: (state) => {
+        return state.gameBoard
     }
 }
 
@@ -39,6 +42,9 @@ const mutations = {
                 // alert('')
             }
         }
+    },
+    setDifficulty(state, { difficulty }) {
+        state.gameDifficulty = difficulty
     }
 }
 
@@ -58,6 +64,10 @@ const actions = {
                 alert('')
             }
         }
+    },
+    changeDifficulty({commit}, { difficulty = ''}) {
+        const selectedDifficulty = difficultyList.find(difficultyEl => difficultyEl.name === difficulty)
+        commit('setDifficulty', { difficulty: selectedDifficulty })
     }
 }
 

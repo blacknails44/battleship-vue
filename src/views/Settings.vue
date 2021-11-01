@@ -3,17 +3,30 @@
   <div>
     <div class="label">Select a difficulty</div>
     <div class="difficulty">
-      <button class="button">Easy</button>
-      <button class="button">Medium</button>
-      <button class="button">Hard</button>
+      <button class="button" @click="changeDifficulty({difficulty: 'Easy' })">Easy</button>
+      <button class="button" @click="changeDifficulty({difficulty: 'Medium' })">Medium</button>
+      <button class="button" @click="changeDifficulty({difficulty: 'Hard' })">Hard</button>
     </div>
   </div>
 </div>
 </template>
 
 <script>
+
+import { mapActions, mapState } from "vuex";
+
 export default {
-  name: "Settings"
+  name: "Settings",
+  computed: {
+    ...mapState('game',{
+      gameDifficulty: "gameDifficulty"
+    })
+  },
+  methods: {
+    ...mapActions('game', {
+      changeDifficulty: 'changeDifficulty'
+    })
+  },
 }
 </script>
 
