@@ -14,6 +14,7 @@
 <script>
 
 import { mapActions, mapState } from "vuex";
+import Swal from 'sweetalert2'
 
 export default {
   name: "Settings",
@@ -25,7 +26,15 @@ export default {
   methods: {
     ...mapActions('game', {
       changeDifficulty: 'changeDifficulty'
-    })
+    }),
+    handleChangeDifficulty(difficulty) {
+      Swal.fire({
+        title: `Change the difficulty to ${difficulty?.difficulty}`
+      }).then( result => {
+        if(result?.isConfirmed)
+          this.changeDifficulty(difficulty)
+      })
+    }
   },
 }
 </script>

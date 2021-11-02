@@ -9,9 +9,6 @@
         Current Turn: {{ currentTurn }}
       </div>
     </div>
-      <div>
-        Difficulty: {{difficulty}}
-      </div>
     <div class="board-wrapper">
       <div class="flex">
         <div class="mr-4 first-col"></div>
@@ -48,7 +45,8 @@ export default {
   components: {
   },
   mounted() {
-    this.setInitialDifficulty()
+    if(!this.difficulty)
+      this.setInitialDifficulty()
   },
   data() {
     return {
@@ -65,7 +63,19 @@ export default {
   watch: {
     isGameOver(val){
       if(val) {
-        Swal.fire({title: 'You can do it better ! ', confirmButtonText:'Play Again'}).then((result) => {
+        Swal.fire({
+          title: 'You can do it better ! ',
+          confirmButtonText:'Play Again'
+        }).then((result) => {
+          result?.isConfirmed && this.resetGame()
+        })
+      }
+    },
+    isWinner(val) {
+      if(val) {
+        Swal.fire({
+          title: 'Congratulations! You won the game!'
+        }).then(result => {
           result?.isConfirmed && this.resetGame()
         })
       }

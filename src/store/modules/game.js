@@ -14,8 +14,8 @@ const getters = {
     isGameOver: (state) => {
         console.log(state.currentTurn, state.gameDifficulty?.numberOfTurns)
         const isTurnsFinished = state.currentTurn >= state.gameDifficulty?.numberOfTurns
-        const isShipsDestroyed = state.ships.every(ship => !ship.isAlive)
-        return isTurnsFinished || isShipsDestroyed
+        // const isShipsDestroyed = state.ships.every(ship => !ship.isAlive)
+        return isTurnsFinished
     },
     isWinner: (state) => {
         return state.ships.every(ship => !ship.isAlive)
