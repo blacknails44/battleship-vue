@@ -12,7 +12,6 @@
       <div>
         Difficulty: {{difficulty}}
       </div>
-    {{isGameOver}}
     <div class="board-wrapper">
       <div class="flex">
         <div class="mr-4 first-col"></div>
@@ -37,7 +36,7 @@
 
 <script>
 import { mapGetters, mapState, mapActions } from 'vuex'
-
+import Swal from 'sweetalert2'
 import { rows, cols} from "@/constants/game";
 import ocean from '@/assets/ocean.svg'
 import sword from '@/assets/sword-cross.svg'
@@ -49,7 +48,6 @@ export default {
   components: {
   },
   mounted() {
-    console.log('mont')
     this.setInitialDifficulty()
   },
   data() {
@@ -64,12 +62,22 @@ export default {
       cols
     }
   },
+  watch: {
+    isGameOver(val){
+      if(val) {
+        Swal.fire({title: 'You can do it better ! ', confirmButtonText:'Play Again'}).then((result) => {
+          result?.isConfirmed && this.resetGame()
+        })
+      }
+    }
+  },
   methods: {
     attackShip(position) {
       this.$store.commit('game/handleAttackShip', {position})
     },
     ...mapActions('game', {
-      setInitialDifficulty: 'setInitialDifficulty'
+      setInitialDifficulty: 'setInitialDifficulty',
+      resetGame: 'resetGame'
     })
   },
   computed: {

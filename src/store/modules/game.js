@@ -47,6 +47,12 @@ const mutations = {
     setDifficulty(state, { difficulty }) {
         console.log('set idf', difficulty)
         state.gameDifficulty = difficulty
+    },
+    resetGame(state) {
+        state.gameBoard = generateBoard()
+        state.currentTurn = 0
+        state.ships = generateShips()
+        state.shipsDamagedPositions = {}
     }
 }
 
@@ -77,6 +83,9 @@ const actions = {
             numberOfTurns: 50
         }
         commit('setDifficulty', { difficulty })
+    },
+    resetGame({commit}) {
+        commit('resetGame')
     }
 }
 
