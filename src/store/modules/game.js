@@ -1,4 +1,4 @@
-import {colors, difficultyList, numberOfTurnsByDifficulty} from "@/constants/game";
+import {colors, difficulties, difficultyList} from "@/constants/game";
 import {generateBoard, generateShips} from "@/helpers/game";
 
 const state = () => ({
@@ -12,7 +12,8 @@ const state = () => ({
 
 const getters = {
     isGameOver: (state) => {
-        const isTurnsFinished = state.currentTurn === numberOfTurnsByDifficulty[state.gameDifficulty]
+        console.log(state.currentTurn, state.gameDifficulty?.numberOfTurns)
+        const isTurnsFinished = state.currentTurn >= state.gameDifficulty?.numberOfTurns
         const isShipsDestroyed = state.ships.every(ship => !ship.isAlive)
         return isTurnsFinished || isShipsDestroyed
     },
@@ -44,6 +45,7 @@ const mutations = {
         }
     },
     setDifficulty(state, { difficulty }) {
+        console.log('set idf', difficulty)
         state.gameDifficulty = difficulty
     }
 }
@@ -68,6 +70,13 @@ const actions = {
     changeDifficulty({commit}, { difficulty = ''}) {
         const selectedDifficulty = difficultyList.find(difficultyEl => difficultyEl.name === difficulty)
         commit('setDifficulty', { difficulty: selectedDifficulty })
+    },
+    setInitialDifficulty({commit}) {
+        const difficulty = {
+            name: difficulties['HARD'],
+            numberOfTurns: 50
+        }
+        commit('setDifficulty', { difficulty })
     }
 }
 

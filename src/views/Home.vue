@@ -12,6 +12,7 @@
       <div>
         Difficulty: {{difficulty}}
       </div>
+    {{isGameOver}}
     <div class="board-wrapper">
       <div class="flex">
         <div class="mr-4 first-col"></div>
@@ -35,7 +36,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState, mapActions } from 'vuex'
 
 import { rows, cols} from "@/constants/game";
 import ocean from '@/assets/ocean.svg'
@@ -46,6 +47,10 @@ import cross from '@/assets/cross.svg'
 export default {
   name: 'Home',
   components: {
+  },
+  mounted() {
+    console.log('mont')
+    this.setInitialDifficulty()
   },
   data() {
     return {
@@ -63,6 +68,9 @@ export default {
     attackShip(position) {
       this.$store.commit('game/handleAttackShip', {position})
     },
+    ...mapActions('game', {
+      setInitialDifficulty: 'setInitialDifficulty'
+    })
   },
   computed: {
     ...mapGetters('game', {
