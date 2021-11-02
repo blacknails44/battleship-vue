@@ -12,9 +12,7 @@ const state = () => ({
 
 const getters = {
     isGameOver: (state) => {
-        console.log(state.currentTurn, state.gameDifficulty?.numberOfTurns)
         const isTurnsFinished = state.currentTurn >= state.gameDifficulty?.numberOfTurns
-        // const isShipsDestroyed = state.ships.every(ship => !ship.isAlive)
         return isTurnsFinished
     },
     isWinner: (state) => {
@@ -39,13 +37,9 @@ const mutations = {
             state.gameBoard[position].color = colors[ship.length]
             state.shipsDamagedPositions[position] = true
             ship.isAlive = !ship.squares.every(square => state.shipsDamagedPositions[square])
-            if(!ship.isAlive) {
-                // alert('')
-            }
         }
     },
     setDifficulty(state, { difficulty }) {
-        console.log('set idf', difficulty)
         state.gameDifficulty = difficulty
     },
     resetGame(state) {
@@ -57,22 +51,6 @@ const mutations = {
 }
 
 const actions = {
-    attackShip({ commit, state }, position) {
-        console.log(commit)
-        !state.gameBoard[position].isVisited && (state.currentTurn = state.currentTurn + 1)
-        state.gameBoard[position].isVisited = true
-        const ship = state.ships.find(ship => ship.squares.includes(position))
-        if(ship) {
-            state.ship = ship
-            state.gameBoard[position].containsShip = true
-            state.gameBoard[position].color = colors[ship.length]
-            state.shipsDamagedPositions[position] = true
-            ship.isAlive = !ship.squares.every(square => state.shipsDamagedPositions[square])
-            if(!ship.isAlive) {
-                alert('')
-            }
-        }
-    },
     changeDifficulty({commit}, { difficulty = ''}) {
         const selectedDifficulty = difficultyList.find(difficultyEl => difficultyEl.name === difficulty)
         commit('setDifficulty', { difficulty: selectedDifficulty })
